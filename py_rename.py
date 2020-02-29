@@ -28,12 +28,16 @@ def copy_folder(src, dest):
 
 
 def replaceFileText(fp, old, new):
-    # f = open(fp, 'r')
-    # s = f.read()
-    # f.close()
-    f = open(fp, 'w+')
+    # fin = open(fp, "rt")
+    # for line in fin:
+    #     fout.write(line.replace(old, new))
+    f = open(fp, 'r')
     s = f.read()
+    f.close()
+    
+    f = open(fp, 'w')
     s = s.replace(old, new)
+    
     f.write(s)
     f.close()
 
