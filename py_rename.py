@@ -10,10 +10,15 @@ import stat
 '''
 
 SRC_FILE_NAME_TO_REPLACE = "foo_bar"
-SRC_STRING_TO_REPLACE = "foo_bar"
+# SRC_STRING_TO_REPLACE = "foo_bar"
 
 DEST_NEW_FILE_NAME = "hello_world"
-DEST_NEW_STRING = "Hello World"
+# DEST_NEW_STRING = "Hello World"
+
+REPLACE = [
+    {'src':'foo' , 'dest':'hello'},
+    {'src':'bar', 'dest':'world'},
+]
 
 SRC = "src/"
 DEST = "dest/"
@@ -26,13 +31,13 @@ DO_TEST = True
 def copy_folder(src, dest):
     # deletes the dest directory if it exists
     if (os.path.isdir("./{}".format(dest))):
-        shutil.rmtree("./{}".format(dest), onerror=common.del_evenReadonly)
+        shutil.rmtree("./{}".format(dest))
     fromDirectory = "./{}".format(src)
     toDirectory = "./{}".format(dest)
     copy_tree(fromDirectory, toDirectory)
 
 
-def replaceFileText(fp, old, new):
+def replaceFileText(fp, replace):
     # fin = open(fp, "rt")
     # for line in fin:
     #     fout.write(line.replace(old, new))
@@ -41,19 +46,20 @@ def replaceFileText(fp, old, new):
     f.close()
     
     f = open(fp, 'w')
-    s = s.replace(old, new)
+    for r in replace:
+        s = s.replace(r['src'], r['dest'])
     
     f.write(s)
     f.close()
 
 
-def convert_names(src, dest, old_string, new_string, old_filename, new_filename):
+def convert_names(src, dest, replace, old_filename, new_filename):
     for currentpath, dirs, files in os.walk(dest):
         for file in files:
             # replace windows paths
             filePath = os.path.join(currentpath, file).replace("\\", "/")
 
-            replaceFileText(filePath, old_string, new_string)
+            replaceFileText(filePath, replace)
             # not sure why I'm doing it this way and not just saving the file with a new name?
             # does not support renaming folders
             new_name    = file.replace(old_filename, new_filename)
@@ -67,4 +73,4 @@ if __name__ == "__main__":
     if DO_TEST:
         SRC = TEST_DIR
     copy_folder(SRC, DEST)
-    convert_names(SRC, DEST, SRC_STRING_TO_REPLACE, DEST_NEW_STRING, SRC_FILE_NAME_TO_REPLACE, DEST_NEW_FILE_NAME)
+    convert_names(SRC, DEST, REPLACE, SRC_FILE_NAME_TO_REPLACE, DEST_NEW_FILE_NAME)
