@@ -4,28 +4,8 @@ import sys
 from distutils.dir_util import copy_tree
 import shutil
 import stat
+import settings
 
-'''
- ------------------ SETTINGS -------------------
-'''
-
-SRC_FILE_NAME_TO_REPLACE = "foo_bar"
-# SRC_STRING_TO_REPLACE = "foo_bar"
-
-DEST_NEW_FILE_NAME = "hello_world"
-# DEST_NEW_STRING = "Hello World"
-
-REPLACE = [
-    {'src':'foo' , 'dest':'hello'},
-    {'src':'bar', 'dest':'world'},
-]
-
-SRC = "src/"
-DEST = "dest/"
-TEST_DIR = "test/"
-DO_TEST = True
-
-''' ------------ end of settings --------- '''
 
 # Copies a folder and contents to temp directory
 def copy_folder(src, dest):
@@ -70,7 +50,13 @@ def convert_names(src, dest, replace, old_filename, new_filename):
 
 
 if __name__ == "__main__":
-    if DO_TEST:
-        SRC = TEST_DIR
-    copy_folder(SRC, DEST)
-    convert_names(SRC, DEST, REPLACE, SRC_FILE_NAME_TO_REPLACE, DEST_NEW_FILE_NAME)
+    if settings.DO_TEST:
+        settings.SRC = settings.TEST_DIR
+    copy_folder(settings.SRC, settings.DEST)
+    convert_names(
+        settings.SRC, 
+        settings.DEST, 
+        settings.REPLACE, 
+        settings.SRC_FILE_NAME_TO_REPLACE,
+        settings.DEST_NEW_FILE_NAME
+    )
