@@ -5,6 +5,10 @@ from distutils.dir_util import copy_tree
 import shutil
 import stat
 
+'''
+ ------------------ SETTINGS -------------------
+'''
+
 SRC_FILE_NAME_TO_REPLACE = "foo_bar"
 SRC_STRING_TO_REPLACE = "foo_bar"
 
@@ -15,6 +19,8 @@ SRC = "src/"
 DEST = "dest/"
 TEST_DIR = "test/"
 DO_TEST = True
+
+''' ------------ end of settings --------- '''
 
 # Copies a folder and contents to temp directory
 def copy_folder(src, dest):
