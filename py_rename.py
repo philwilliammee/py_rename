@@ -4,7 +4,6 @@ import sys
 from distutils.dir_util import copy_tree
 import shutil
 import stat
-import py_common as common
 
 SRC_FILE_NAME_TO_REPLACE = "foo_bar"
 SRC_STRING_TO_REPLACE = "foo_bar"
@@ -50,7 +49,9 @@ def convert_names(src, dest, old_string, new_string, old_filename, new_filename)
 
             replaceFileText(filePath, old_string, new_string)
             # not sure why I'm doing it this way and not just saving the file with a new name?
-            newFilePath = filePath.replace(old_filename, new_filename)
+            # does not support renaming folders
+            new_name    = file.replace(old_filename, new_filename)
+            newFilePath    = os.path.join(currentpath, new_name).replace("\\", "/")
             print(filePath)
             os.rename(filePath, newFilePath)
             print(newFilePath)
