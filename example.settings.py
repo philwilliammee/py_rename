@@ -5,10 +5,8 @@
 '''
 
 SRC_FILE_NAME_TO_REPLACE = "foo_bar"
-# SRC_STRING_TO_REPLACE = "foo_bar"
 
 DEST_NEW_FILE_NAME = "hello_world"
-# DEST_NEW_STRING = "Hello World"
 
 REPLACE = [
     {'src':'foo' , 'dest':'hello'},
