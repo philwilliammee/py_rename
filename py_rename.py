@@ -44,9 +44,10 @@ def convert_names(src, dest, replace, old_filename, new_filename):
             # does not support renaming folders
             new_name    = file.replace(old_filename, new_filename)
             newFilePath    = os.path.join(currentpath, new_name).replace("\\", "/")
-            print(filePath)
+            print("renaming {} to {} ".format(filePath, newFilePath))
             os.rename(filePath, newFilePath)
-            print(newFilePath)
+    os.remove(dest + ".gitignore")
+    
 
 
 if __name__ == "__main__":
